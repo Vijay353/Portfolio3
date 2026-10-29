@@ -11,9 +11,8 @@ export const experience: ExperienceEntry[] = [
   {
     organization: "Third Estate Ventures",
     location: "Buffalo, NY · Remote",
-    span: "Sep 2025 – Present",
-    current: true,
-    roles: [{ title: "Business Intelligence & UX Designer, Multi-Project Fellow", dates: "Sep 2025 – Present" }],
+    span: "Sep 2025 – Jun 2026",
+    roles: [{ title: "Business Intelligence & UX Designer, Multi-Project Fellow", dates: "Sep 2025 – Jun 2026" }],
     summary:
       "Work from analyst discovery through implementation to rebuild the property data behind real-estate investment decisions, and the Power BI views analysts use to make them.",
     highlights: ["Python", "REST APIs", "Snowflake", "Power BI", "UX research"],
