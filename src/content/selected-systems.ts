@@ -26,7 +26,10 @@ export const selectedSystems: SelectedSystem[] = [
     before: "Manual line-by-line review",
     after: "Proven exceptions only",
     stack: ["TypeScript", "React"],
-    links: [],
+    links: [
+      { label: "Live demo", href: "https://matchpoint.hiddenpoint06.de/" },
+      { label: "Architecture & README", href: null },
+    ],
     honesty: "SAP simulated and labeled; every exception write is idempotent and audit-logged.",
   },
   {
@@ -81,7 +84,10 @@ export const selectedSystems: SelectedSystem[] = [
     before: "Findings aging in sheets",
     after: "Every fix evidence-backed",
     stack: [],
-    links: [],
+    links: [
+      { label: "Live demo", href: null },
+      { label: "Architecture & README", href: null },
+    ],
     honesty: "Ticketing and compliance systems simulated and labeled.",
   },
   {
@@ -109,7 +115,10 @@ export const selectedSystems: SelectedSystem[] = [
     before: "Campaign spend judged on stale dashboards",
     after: "Pause decision on fresh evidence, provably effective",
     stack: ["TypeScript", "React", "Fastify", "SQLite", "Playwright"],
-    links: [],
+    links: [
+      { label: "Live demo", href: null },
+      { label: "Architecture & README", href: null },
+    ],
     honesty:
       "Uber Ads and POS/KDS are stateful HTTP simulators; Uber scopes and endpoints verified against public docs, with documented TO_VERIFY items handled conservatively. No user research or revenue claims.",
   },
