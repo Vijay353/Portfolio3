@@ -3,6 +3,33 @@ import type { SelectedSystem } from "./types";
 /** Four agentic systems for the "From promise to proof" section. The first entry is featured by default. */
 export const selectedSystems: SelectedSystem[] = [
   {
+    slug: "three-way-match",
+    shortName: "3-Way Match",
+    name: "Three-Way Match Controller",
+    eyebrow: "Agentic AI · Finance operations",
+    headline: "Three-Way Match Controller — catching invoice mismatches before they become payments",
+    positioning:
+      "An agentic controller that reconciles purchase orders, goods receipts, and invoices, escalating only discrepancies it can prove — SAP-simulated backend.",
+    problem:
+      "PO, receipt, and invoice records disagree constantly; teams drown in false positives while real overpayments slip through.",
+    metrics: [
+      { value: "60%", label: "fewer matching exceptions" },
+      { value: "~12K → ~4.8K", label: "matching exceptions, before → after" },
+    ],
+    architecture: [
+      { label: "Document intake", note: "Receives PO, goods receipt and invoice records." },
+      { label: "Match extractor", note: "Pulls line items to compare across the three documents." },
+      { label: "Discrepancy policy", note: "Decides which mismatches are real exceptions." },
+      { label: "Exception tool", note: "The single write: opens an exception, idempotent and audit-logged." },
+      { label: "Reconciliation verifier", note: "Checks that the exception was recorded correctly." },
+    ],
+    before: "Manual line-by-line review",
+    after: "Proven exceptions only",
+    stack: ["TypeScript", "React"],
+    links: [],
+    honesty: "SAP simulated and labeled; every exception write is idempotent and audit-logged.",
+  },
+  {
     slug: "refund-assurance",
     shortName: "Refund Assurance",
     name: "Refund Assurance",
@@ -35,33 +62,6 @@ export const selectedSystems: SelectedSystem[] = [
       "Salesforce-style systems simulated and labeled; no model called at runtime — the LLM slot is a proven, schema-guarded boundary.",
   },
   {
-    slug: "three-way-match",
-    shortName: "3-Way Match",
-    name: "Three-Way Match Controller",
-    eyebrow: "Agentic AI · Finance operations",
-    headline: "Three-Way Match Controller — catching invoice mismatches before they become payments",
-    positioning:
-      "An agentic controller that reconciles purchase orders, goods receipts, and invoices, escalating only discrepancies it can prove — SAP-simulated backend.",
-    problem:
-      "PO, receipt, and invoice records disagree constantly; teams drown in false positives while real overpayments slip through.",
-    metrics: [
-      { value: "60%", label: "fewer matching exceptions" },
-      { value: "~12K → ~4.8K", label: "matching exceptions, before → after" },
-    ],
-    architecture: [
-      { label: "Document intake", note: "Receives PO, goods receipt and invoice records." },
-      { label: "Match extractor", note: "Pulls line items to compare across the three documents." },
-      { label: "Discrepancy policy", note: "Decides which mismatches are real exceptions." },
-      { label: "Exception tool", note: "The single write: opens an exception, idempotent and audit-logged." },
-      { label: "Reconciliation verifier", note: "Checks that the exception was recorded correctly." },
-    ],
-    before: "Manual line-by-line review",
-    after: "Proven exceptions only",
-    stack: ["TypeScript", "React"],
-    links: [],
-    honesty: "SAP simulated and labeled; every exception write is idempotent and audit-logged.",
-  },
-  {
     slug: "soc-issue-solver",
     shortName: "SOC",
     name: "SOC Issue Solver",
@@ -85,27 +85,32 @@ export const selectedSystems: SelectedSystem[] = [
     honesty: "Ticketing and compliance systems simulated and labeled.",
   },
   {
-    slug: "quote-to-order",
-    shortName: "Quote-to-Order",
-    name: "Quote-to-Order Controller",
-    eyebrow: "Agentic AI + integrations · Manufacturing",
-    headline: "Quote-to-Order Controller — making configured quotes become valid orders, provably",
+    slug: "marginpulse",
+    shortName: "MarginPulse",
+    name: "MarginPulse",
+    eyebrow: "Agentic AI · Operations (marketplace)",
+    headline: "MarginPulse — pausing paid demand when the kitchen is drowning, and proving the pause stuck",
     positioning:
-      "An agentic reliability layer across Salesforce, Configit CPQ, and SAP ERP that verifies a configured quote actually became a valid order — and reopens the defect when it didn't.",
+      "On a kitchen-load event from a POS/KDS webhook, an investigator gathers read-only evidence, a deterministic 18-check policy decides, a manager approves, and exactly one PATCH pauses the Sponsored Listings campaign — verified by readback, never by HTTP 200.",
     problem:
-      "Configured quotes were failing to become valid orders across Salesforce, Configit, and SAP — 38 configuration defects per month.",
-    metrics: [{ value: "38 → 2", label: "configuration defects per month" }],
-    architecture: [
-      { label: "Quote event", note: "A configured quote is submitted from Salesforce." },
-      { label: "Config extractor", note: "Reads the Configit configuration into a structured record." },
-      { label: "Cross-system policy", note: "Checks the quote against SAP order rules." },
-      { label: "Defect-reopen tool", note: "The single write: reopens the defect." },
-      { label: "Order-state verifier", note: "Confirms the order became valid in SAP." },
+      "During a rush, the kitchen and the ad budget live in different systems; pausing means noticing, switching tools, and later checking it actually stopped.",
+    metrics: [
+      { value: "81 + 6", label: "Vitest + Playwright tests" },
+      { value: "1", label: "write path — approval-bound, idempotency-reserved, pre-write re-read, readback-verified" },
+      { value: "3", label: "failure classifications handled without blind retries" },
     ],
-    before: "Defects found by customers",
-    after: "Defects proven and routed automatically",
-    stack: ["Salesforce", "Configit CPQ", "SAP ERP"],
+    architecture: [
+      { label: "Signed POS webhook", note: "Fires on a kitchen-load event." },
+      { label: "Read-only investigator", note: "Gathers cited, value-checked evidence." },
+      { label: "18-check policy engine", note: "Deterministic decision, no blind retries." },
+      { label: "Manager approval", note: "Role + store + campaign + policy version + TTL." },
+      { label: "One PATCH + readback", note: "Verifies the pause stuck, never by HTTP 200." },
+    ],
+    before: "Campaign spend judged on stale dashboards",
+    after: "Pause decision on fresh evidence, provably effective",
+    stack: ["TypeScript", "React", "Fastify", "SQLite", "Playwright"],
     links: [],
-    honesty: "Enterprise systems simulated per integration contract; live demo runs cloud-deployed.",
+    honesty:
+      "Uber Ads and POS/KDS are stateful HTTP simulators; Uber scopes and endpoints verified against public docs, with documented TO_VERIFY items handled conservatively. No user research or revenue claims.",
   },
 ];
