@@ -30,29 +30,45 @@ export function HeaderNav() {
 
   useEffect(() => {
     if (!isSpyPage) return;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const line = window.innerHeight / 3;
-      let current: string | null = null;
-      for (const t of SPY_TARGETS) {
-        const el = document.getElementById(t.id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= line) current = t.href;
-      }
-      setSpyHref(current);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Honor a deep link (e.g. /#experience) by scrolling to that section smoothly.
+    const initial = window.location.hash.slice(1);
+    if (initial && SPY_TARGETS.some((t) => t.id === initial)) {
+      document.getElementById(initial)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
+    }
+
+    // A section is "current" while it crosses the top 30% of the viewport.
+    const visible = new Set<string>();
+    let currentId: string | null = null;
+    const commit = () => {
+      // The last section in page order that is inside the band wins.
+      const id = SPY_TARGETS.map((t) => t.id).filter((x) => visible.has(x)).pop() ?? null;
+      if (id === currentId) return;
+      currentId = id;
+      const target = SPY_TARGETS.find((t) => t.id === id);
+      setSpyHref(target ? target.href : null);
+      // Keep the address bar in sync without adding history entries or jumping.
+      if (id) history.replaceState(null, "", `#${id}`);
     };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = (entry.target as HTMLElement).id;
+          if (entry.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        }
+        commit();
+      },
+      { rootMargin: "0px 0px -70% 0px", threshold: 0 },
+    );
+
+    for (const t of SPY_TARGETS) {
+      const el = document.getElementById(t.id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
   }, [isSpyPage, pathname]);
 
   return (

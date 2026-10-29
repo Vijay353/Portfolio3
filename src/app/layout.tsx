@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { AnalyticsListener } from "@/components/AnalyticsListener";
+import { CopyToastHost } from "@/components/CopyToast";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { PrintBrief } from "@/components/PrintBrief";
 import { ThemeScript } from "@/components/ThemeScript";
 import { site, siteUrl } from "@/content/site";
 import "./globals.css";
@@ -75,6 +77,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <Footer />
+        <PrintBrief />
+        <CopyToastHost />
         <AnalyticsListener gaEnabled={Boolean(GA_ID)} />
         {GA_ID ? <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" /> : null}
       </body>

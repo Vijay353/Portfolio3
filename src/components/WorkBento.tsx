@@ -37,8 +37,10 @@ export function WorkBento() {
                 aria-pressed={active}
                 onClick={() => promote(s.slug)}
                 className={cn(
-                  "btn shrink-0 px-4",
-                  active ? "btn-primary underline underline-offset-4" : "text-muted hover:text-fg",
+                  "btn shrink-0 border px-4 no-underline hover:no-underline",
+                  active
+                    ? "btn-primary border-transparent"
+                    : "border-transparent text-muted hover:border-line-strong hover:bg-surface hover:text-fg",
                 )}
               >
                 {s.shortName}

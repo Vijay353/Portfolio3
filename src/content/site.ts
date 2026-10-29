@@ -18,7 +18,7 @@ export const site = {
     "Vijay Kumar, Product & Solutions professional connecting users, business decisions, and enterprise systems. Previously FactSet and Configit; product strategy and UX at the University at Buffalo.",
 
   /** [link pending]. The old site used contact@vijaykumar.com, which looks like a placeholder. */
-  email: null as string | null,
+  email: "banothvijaykumar01@gmail.com" as string | null,
   linkedin: "https://www.linkedin.com/in/vk902/" as string | null,
   github: "https://github.com/Vijay353" as string | null,
   /** From index6.html. */
