@@ -27,7 +27,10 @@ export default function CommandPalette({ commands, onClose }: { commands: Palett
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const available = commands.filter((command) => !command.workPageOnly || pathname === "/work");
+    // Every command is searchable from every page. Entries that live on /work
+    // navigate there first (see run): filtering by page is what made searches
+    // for agent projects and archive items return nothing off the Work page.
+    const available = commands;
     const matched = q
       ? available.filter((command) => {
           const terms = q.split(/\s+/).filter(Boolean);
@@ -82,7 +85,14 @@ export default function CommandPalette({ commands, onClose }: { commands: Palett
     dialogRef.current?.close();
 
     if (cmd.kind === "archive-project" && cmd.archiveGroup && cmd.archiveAnchor) {
-      window.dispatchEvent(new CustomEvent("work-archive-open", { detail: { group: cmd.archiveGroup, targetId: cmd.archiveAnchor } }));
+      const detail = { group: cmd.archiveGroup, targetId: cmd.archiveAnchor };
+      if (pathname === "/work") {
+        window.dispatchEvent(new CustomEvent("work-archive-open", { detail }));
+      } else if (cmd.href) {
+        // Land on /work first, then open the accordion once the page is mounted.
+        navigate(cmd.href);
+        window.setTimeout(() => window.dispatchEvent(new CustomEvent("work-archive-open", { detail })), 600);
+      }
     } else if (cmd.kind === "work-lens" && cmd.workLens) {
       if (pathname === "/work") {
         window.dispatchEvent(new CustomEvent("work-lens-select", { detail: cmd.workLens }));
@@ -180,7 +190,7 @@ export default function CommandPalette({ commands, onClose }: { commands: Palett
 
         <div ref={listRef} id={`${baseId}-list`} role="listbox" aria-label="Results" className="min-h-0 flex-1 overflow-y-auto p-2">
           {results.length === 0 ? (
-            <p className="px-3 py-6 text-center text-[0.9375rem] text-subtle">No matches for "{query}"</p>
+            <p className="px-3 py-6 text-center text-[0.9375rem] text-subtle">No matches for "{query}". Try a project, section, or action.</p>
           ) : (
             GROUPS.map((group) => {
               const items = results.filter((c) => c.group === group);
@@ -228,6 +238,7 @@ export default function CommandPalette({ commands, onClose }: { commands: Palett
           <span aria-hidden className="flex items-center gap-3">
             <span className="flex items-center gap-1"><kbd className="kbd">↑</kbd><kbd className="kbd">↓</kbd> move</span>
             <span className="flex items-center gap-1"><kbd className="kbd">↵</kbd> open</span>
+            <span className="tabular-nums">{results.length} {results.length === 1 ? "result" : "results"}</span>
           </span>
           <span role="status" aria-live="polite" className="text-fg">
             {notice}

@@ -15,7 +15,6 @@ export type PaletteCommand = {
   value?: string;
   event?: AnalyticsEvent;
   workLens?: WorkLensFilter;
-  workPageOnly?: boolean;
   archiveGroup?: ArchiveGroup;
   archiveAnchor?: string;
 };
@@ -47,7 +46,6 @@ export function getPaletteCommands(): PaletteCommand[] {
       href: "/work",
       kind: "work-lens",
       workLens: "all",
-      workPageOnly: true,
       keywords: "clear filter all projects archive",
     },
     ...WORK_LENSES.map<PaletteCommand>((lens) => ({
@@ -57,19 +55,17 @@ export function getPaletteCommands(): PaletteCommand[] {
       href: `/work?lens=${lens.id}`,
       kind: "work-lens",
       workLens: lens.id,
-      workPageOnly: true,
       keywords: lens.keywords,
     })),
-    { id: "jump-case-studies", label: "Jump to Featured Case Studies", group: "Work", href: "/work#case-studies", kind: "navigate", workPageOnly: true, keywords: "featured projects" },
-    { id: "jump-applied-ai", label: "Jump to Applied AI", group: "Work", href: "/work#applied-ai", kind: "navigate", workPageOnly: true, keywords: "AI RAG agents GenAI" },
-    { id: "jump-project-archive", label: "Jump to Project Archive", group: "Work", href: "/work#project-archive", kind: "navigate", workPageOnly: true, keywords: "archive audit earlier projects" },
+    { id: "jump-case-studies", label: "Jump to Featured Case Studies", group: "Work", href: "/work#case-studies", kind: "navigate", keywords: "featured projects" },
+    { id: "jump-applied-ai", label: "Jump to Applied AI", group: "Work", href: "/work#applied-ai", kind: "navigate", keywords: "AI RAG agents GenAI" },
+    { id: "jump-project-archive", label: "Jump to Project Archive", group: "Work", href: "/work#project-archive", kind: "navigate", keywords: "archive audit earlier projects" },
     ...getAgentEntries().map<PaletteCommand>((a) => ({
       id: `agent-${a.id}`,
       label: shortName(a),
       group: "Work",
       href: `/work#${a.id}`,
       kind: "navigate",
-      workPageOnly: true,
       keywords: `${a.eyebrow} ${a.context ?? ""} ${(a.stack ?? []).join(" ")} ${a.lenses.join(" ")}`,
       event: "case_study_click",
     })),
@@ -79,7 +75,6 @@ export function getPaletteCommands(): PaletteCommand[] {
       group: "Work",
       href: `/work#${archiveAnchor(item)}`,
       kind: "archive-project",
-      workPageOnly: true,
       archiveGroup: group,
       archiveAnchor: archiveAnchor(item),
       keywords: `${group} ${item.positioning ?? ""} ${item.outcome ?? ""} ${(item.tags ?? []).join(" ")}`,

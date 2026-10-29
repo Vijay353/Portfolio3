@@ -15,14 +15,29 @@ export function CommandPaletteTrigger({ commands }: { commands: PaletteCommand[]
 
   useEffect(() => {
     setMod(/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? "⌘" : "Ctrl");
+    const openPalette = () => setOpen(true);
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && !e.altKey && !e.shiftKey && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen((v) => !v);
+        return;
+      }
+      // "/" opens the palette when the visitor is not typing somewhere.
+      const target = e.target as HTMLElement | null;
+      const typing =
+        !!target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable);
+      if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key === "/") {
+        e.preventDefault();
+        setOpen(true);
       }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    // The mobile menu has no trigger button, so it opens the palette through this event.
+    window.addEventListener("open-command-palette", openPalette);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("open-command-palette", openPalette);
+    };
   }, []);
 
   const close = useCallback(() => setOpen(false), []);
@@ -41,7 +56,8 @@ export function CommandPaletteTrigger({ commands }: { commands: PaletteCommand[]
         className="hidden min-h-9 items-center gap-2 rounded-md border border-line px-2 text-[0.8125rem] text-subtle transition-colors hover:border-line-strong hover:text-fg md:inline-flex"
       >
         <span className="sr-only">Open quick actions</span>
-        <span aria-hidden className="flex items-center gap-1">
+        <span aria-hidden className="flex items-center gap-1.5">
+          <span className="text-[0.8125rem]">Search</span>
           <kbd className="kbd">{mod ?? "⌘"}</kbd>
           <kbd className="kbd">K</kbd>
         </span>

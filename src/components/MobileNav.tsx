@@ -61,6 +61,22 @@ export function MobileNav() {
       >
         <nav aria-label="Mobile" className="container-page py-3">
           <ul className="flex flex-col">
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  window.dispatchEvent(new CustomEvent("open-command-palette"));
+                }}
+                className="flex min-h-12 w-full items-center justify-between border-b border-line text-[1.0625rem] font-medium text-fg"
+              >
+                Search
+                <span aria-hidden className="flex items-center gap-1">
+                  <kbd className="kbd">⌘</kbd>
+                  <kbd className="kbd">K</kbd>
+                </span>
+              </button>
+            </li>
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
