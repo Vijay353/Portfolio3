@@ -232,12 +232,6 @@
     color: var(--muted);
     background: var(--surface);
   }
-  /* The header pill and its mobile panel stay dark in both themes. */
-  .header-dark kbd.kbd {
-    border-color: rgb(255 255 255 / 0.2);
-    background: rgb(255 255 255 / 0.08);
-    color: rgb(255 255 255 / 0.75);
-  }
 
   /* Height transition for disclosures (collapses instantly with reduced motion). */
   .disclosure-panel {

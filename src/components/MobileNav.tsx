@@ -47,7 +47,7 @@ export function MobileNav() {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex size-10 items-center justify-center rounded-full text-white hover:bg-white/10"
+        className="inline-flex size-11 items-center justify-center rounded-md text-fg hover:bg-accent-soft"
       >
         {open ? <Close className="size-5" /> : <Menu className="size-5" />}
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -57,9 +57,9 @@ export function MobileNav() {
         ref={panelRef}
         id={panelId}
         hidden={!open}
-        className="header-dark absolute inset-x-0 top-[calc(100%+0.5rem)] rounded-2xl border border-white/10 bg-[#111]/95 p-2 text-white shadow-[0_24px_48px_-16px_rgb(0_0_0/0.6)] backdrop-blur"
+        className="absolute inset-x-0 top-full border-b border-line bg-bg shadow-[0_12px_24px_-16px_rgb(0_0_0/0.25)]"
       >
-        <nav aria-label="Mobile" className="px-2 py-1">
+        <nav aria-label="Mobile" className="container-page py-3">
           <ul className="flex flex-col">
             <li>
               <button
@@ -68,7 +68,7 @@ export function MobileNav() {
                   setOpen(false);
                   window.dispatchEvent(new CustomEvent("open-command-palette"));
                 }}
-                className="mono flex min-h-12 w-full items-center justify-between border-b border-white/10 text-[1rem] font-medium text-white"
+                className="flex min-h-12 w-full items-center justify-between border-b border-line text-[1.0625rem] font-medium text-fg"
               >
                 Search
                 <span aria-hidden className="flex items-center gap-1">
@@ -82,7 +82,7 @@ export function MobileNav() {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="mono flex min-h-12 items-center border-b border-white/10 text-[1rem] font-medium text-white/80 last:border-0 hover:text-white"
+                  className="flex min-h-12 items-center border-b border-line text-[1.0625rem] font-medium text-fg last:border-0"
                 >
                   {item.label}
                 </Link>
