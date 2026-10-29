@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { type ReactNode, useId, useState } from "react";
 import { selectedSystems } from "@/content/selected-systems";
 import type { Metric, SelectedSystem } from "@/content/types";
@@ -8,19 +9,16 @@ import { ArchitectureFlow } from "./ArchitectureFlow";
 
 /**
  * From promise to proof: a selector, one featured system card, and the other systems as mini cards.
- * Choosing a system promotes it into the featured slot in place. "All systems" opens an inline index.
+ * Choosing a system promotes it into the featured slot in place. "View all work" goes to /work.
  */
 export function WorkBento() {
   const [activeSlug, setActiveSlug] = useState(selectedSystems[0].slug);
-  const [indexOpen, setIndexOpen] = useState(false);
-  const indexId = useId();
 
   const featured = selectedSystems.find((s) => s.slug === activeSlug) ?? selectedSystems[0];
   const others = selectedSystems.filter((s) => s.slug !== featured.slug);
 
   const promote = (slug: string) => {
     setActiveSlug(slug);
-    setIndexOpen(false);
   };
 
   return (
@@ -48,18 +46,10 @@ export function WorkBento() {
             );
           })}
         </nav>
-        <button
-          type="button"
-          aria-expanded={indexOpen}
-          aria-controls={indexId}
-          onClick={() => setIndexOpen((open) => !open)}
-          className="btn btn-secondary shrink-0"
-        >
-          All systems <span aria-hidden>→</span>
-        </button>
+        <Link href="/work" className="btn btn-secondary shrink-0">
+          View all work <span aria-hidden>→</span>
+        </Link>
       </div>
-
-      {indexOpen ? <SystemIndex id={indexId} systems={selectedSystems} onPromote={promote} /> : null}
 
       <div className="mt-6">
         <FeaturedSystem key={featured.slug} system={featured} />
@@ -264,42 +254,3 @@ function MiniCard({ system, onPromote }: { system: SelectedSystem; onPromote: ()
   );
 }
 
-/** Inline index of all systems: eyebrow, title, one metric, and a link that promotes the system. */
-function SystemIndex({
-  id,
-  systems,
-  onPromote,
-}: {
-  id: string;
-  systems: SelectedSystem[];
-  onPromote: (slug: string) => void;
-}) {
-  return (
-    <ol id={id} className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
-      {systems.map((s) => {
-        const metric = s.metrics[0];
-        return (
-          <li key={s.slug} className="grid gap-3 p-5 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-center md:gap-8">
-            <div className="min-w-0">
-              <p className="eyebrow text-[0.75rem]">{s.eyebrow}</p>
-              <p className="mt-1 font-serif text-[1.125rem] font-semibold tracking-tight text-fg">{s.name}</p>
-            </div>
-            {metric ? (
-              <p className="text-[0.875rem] text-muted">
-                <span className="font-serif text-[1.25rem] font-semibold text-fg tabular-nums">{metric.value}</span>{" "}
-                {metric.label}
-              </p>
-            ) : null}
-            <button
-              type="button"
-              onClick={() => onPromote(s.slug)}
-              className="btn btn-secondary justify-self-start md:justify-self-end"
-            >
-              View <span aria-hidden>→</span>
-            </button>
-          </li>
-        );
-      })}
-    </ol>
-  );
-}

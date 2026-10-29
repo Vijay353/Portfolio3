@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="border-t border-line">
       <div className="container-page py-6 text-[0.9375rem] font-medium text-fg">
-        Buffalo, NY · Responds within 24 hours
+        United States · Responds within 24 hours
       </div>
       <div className="container-page flex flex-col gap-3 pb-8 text-sm text-subtle sm:flex-row sm:items-center sm:justify-between">
         <p>

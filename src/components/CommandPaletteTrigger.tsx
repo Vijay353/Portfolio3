@@ -1,14 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import type { PaletteCommand } from "@/lib/commands";
+import CommandPalette from "./CommandPalette";
 
-// The dialog is code-split: nothing beyond this small trigger loads until first use.
-const loadPalette = () => import("./CommandPalette");
-const CommandPalette = dynamic(loadPalette, { ssr: false });
-
-/** Header entry point + global ⌘K / Ctrl+K shortcut. */
+/** Header entry point + global ⌘K / Ctrl+K shortcut. The dialog renders inline so opening never depends on a late chunk. */
 export function CommandPaletteTrigger({ commands }: { commands: PaletteCommand[] }) {
   const [open, setOpen] = useState(false);
   const [mod, setMod] = useState<"⌘" | "Ctrl" | null>(null);
@@ -47,8 +43,6 @@ export function CommandPaletteTrigger({ commands }: { commands: PaletteCommand[]
       <button
         type="button"
         onClick={() => setOpen(true)}
-        onPointerEnter={loadPalette}
-        onFocus={loadPalette}
         title="Quick actions: jump to pages, open profiles, copy email, and switch theme"
         aria-haspopup="dialog"
         aria-expanded={open}
