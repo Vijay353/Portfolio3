@@ -25,6 +25,7 @@ const sourceSerif = localFont({
 });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID ?? "z5gvkzh4j6";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -81,6 +82,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CopyToastHost />
         <AnalyticsListener gaEnabled={Boolean(GA_ID)} />
         {GA_ID ? <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" /> : null}
+        {CLARITY_ID ? (
+          <Script id="clarity" strategy="afterInteractive">
+            {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", ${JSON.stringify(CLARITY_ID)});`}
+          </Script>
+        ) : null}
       </body>
     </html>
   );
