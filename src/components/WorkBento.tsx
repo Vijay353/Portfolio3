@@ -78,14 +78,14 @@ export function WorkBento() {
 
 function FeaturedSystem({ system }: { system: SelectedSystem }) {
   return (
-    <article className="motion-safe:animate-[fade-in_150ms_ease-out] rounded-xl border border-line bg-surface p-6 md:p-10">
-      <div className="grid gap-y-8 md:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] md:gap-x-12">
-        <div className="flex min-w-0 flex-col gap-5">
+    <article className="motion-safe:animate-[fade-in_150ms_ease-out] rounded-xl border border-line bg-surface p-4 md:p-7">
+      <div className="grid gap-y-6 md:grid-cols-[minmax(0,58fr)_minmax(0,42fr)] md:gap-x-9">
+        <div className="flex min-w-0 flex-col gap-4">
           <p className="eyebrow text-[0.75rem]">{system.eyebrow}</p>
-          <h3 className="font-serif text-[1.75rem] leading-[1.15] font-semibold tracking-tight text-balance text-fg md:text-[2.25rem]">
+          <h3 className="font-serif text-[1.375rem] leading-[1.15] font-semibold tracking-tight text-balance text-fg md:text-[1.75rem]">
             {system.headline}
           </h3>
-          <p className="text-[1.0625rem] leading-relaxed text-fg">{system.positioning}</p>
+          <p className="text-[1rem] leading-relaxed text-fg">{system.positioning}</p>
           <div>
             <p className="eyebrow mb-1.5 text-[0.75rem]">The problem</p>
             <p className="leading-relaxed text-muted">{system.problem}</p>
@@ -103,13 +103,26 @@ function FeaturedSystem({ system }: { system: SelectedSystem }) {
             <div className="flex flex-wrap gap-3 pt-1">
               {system.links.map((link, i) =>
                 link.href ? (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className={cn("btn", i === 0 ? "btn-primary" : "btn-secondary")}
-                  >
-                    {link.label} <span aria-hidden>→</span>
-                  </a>
+                  link.href.startsWith("http") ? (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn("btn", i === 0 ? "btn-primary" : "btn-secondary")}
+                    >
+                      {link.label} <span aria-hidden>→</span>
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ) : (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className={cn("btn", i === 0 ? "btn-primary" : "btn-secondary")}
+                    >
+                      {link.label} <span aria-hidden>→</span>
+                    </a>
+                  )
                 ) : (
                   <span
                     key={link.label}
@@ -128,7 +141,7 @@ function FeaturedSystem({ system }: { system: SelectedSystem }) {
         <ProofPanel system={system} />
       </div>
 
-      <p className="mt-8 border-t border-line pt-4 text-[0.8125rem] leading-relaxed text-subtle">
+      <p className="mt-6 border-t border-line pt-3 text-[0.8125rem] leading-relaxed text-subtle">
         <span className="eyebrow mr-2 text-[0.75rem]">Scope</span>
         {system.honesty}
       </p>
@@ -138,7 +151,7 @@ function FeaturedSystem({ system }: { system: SelectedSystem }) {
 
 function ProofPanel({ system }: { system: SelectedSystem }) {
   return (
-    <div className="flex min-w-0 flex-col gap-6 rounded-lg border border-line bg-bg p-5 md:p-6">
+    <div className="flex min-w-0 flex-col gap-4 rounded-lg border border-line bg-bg p-4 md:p-5">
       <p className="eyebrow text-[0.75rem]">The proof</p>
 
       {/* Metric stack: never collapses. */}
@@ -173,7 +186,7 @@ function MetricRow({ metric }: { metric: Metric }) {
   return (
     <li className="py-4 first:pt-0 last:pb-0">
       {metric.value ? (
-        <p className="font-serif text-[2.25rem] leading-none font-semibold tracking-tight tabular-nums text-fg md:text-[2.5rem]">
+        <p className="font-serif text-[1.75rem] leading-none font-semibold tracking-tight tabular-nums text-fg md:text-[2rem]">
           {metric.value}
         </p>
       ) : null}
