@@ -52,11 +52,10 @@ export function Hero({ lens }: { lens: Lens }) {
               View work
               <ArrowRight className="nudge size-6" />
             </a>
-            <SmartLink href={site.github} track="github_click" trackLabel="hero" className="link text-[0.9375rem] text-subtle">
+            <SmartLink href={site.github} track="github_click" trackLabel="hero" className="btn btn-secondary">
               GitHub
             </SmartLink>
-            <span aria-hidden className="text-subtle">·</span>
-            <SmartLink href={site.linkedin} track="linkedin_click" trackLabel="hero" className="link text-[0.9375rem] text-subtle">
+            <SmartLink href={site.linkedin} track="linkedin_click" trackLabel="hero" className="btn btn-secondary">
               LinkedIn
             </SmartLink>
           </div>
