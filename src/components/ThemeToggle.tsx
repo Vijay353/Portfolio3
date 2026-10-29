@@ -23,7 +23,7 @@ export function ThemeToggle() {
       aria-pressed={dark ?? undefined}
       aria-label="Dark theme"
       title="Toggle dark theme"
-      className="inline-flex size-11 items-center justify-center rounded-md text-muted transition-colors hover:bg-accent-soft hover:text-fg"
+      className="inline-flex size-10 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
     >
       <Moon className="size-[18px] dark:hidden" />
       <Sun className="hidden size-[18px] dark:block" />

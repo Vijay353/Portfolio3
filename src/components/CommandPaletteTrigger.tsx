@@ -53,11 +53,11 @@ export function CommandPaletteTrigger({ commands }: { commands: PaletteCommand[]
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-keyshortcuts="Meta+K Control+K"
-        className="hidden min-h-9 items-center gap-2 rounded-md border border-line px-2 text-[0.8125rem] text-subtle transition-colors hover:border-line-strong hover:text-fg md:inline-flex"
+        className="hidden min-h-9 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 text-[0.8125rem] text-white/70 transition-colors hover:border-white/30 hover:text-white md:inline-flex"
       >
         <span className="sr-only">Open quick actions</span>
         <span aria-hidden className="flex items-center gap-1.5">
-          <span className="text-[0.8125rem]">Search</span>
+          <span className="hidden text-[0.8125rem] lg:inline">Search</span>
           <kbd className="kbd">{mod ?? "⌘"}</kbd>
           <kbd className="kbd">K</kbd>
         </span>

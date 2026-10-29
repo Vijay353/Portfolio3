@@ -6,28 +6,30 @@ import { HeaderNav } from "./HeaderNav";
 import { MobileNav } from "./MobileNav";
 import { ThemeToggle } from "./ThemeToggle";
 
-/** Sticky, 56px tall, present without eating the viewport. */
+/** Floating dark pill. It stays dark in both themes; the page theme, palette, and toggle are untouched. */
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur supports-[backdrop-filter]:bg-bg/80">
+    <header className="sticky top-3 z-40 md:top-4">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2"
       >
         Skip to content
       </a>
-      <div className="container-page relative flex h-16 items-center justify-between gap-4 md:h-[4.25rem]">
-        <Link href="/" className="font-serif text-[1.25rem] font-semibold tracking-tight text-fg">
-          {site.shortName}
-        </Link>
+      <div className="container-page">
+        <div className="header-dark relative flex h-14 items-center justify-between gap-4 rounded-full bg-[#111] pr-2 pl-5 text-white shadow-[0_16px_40px_-20px_rgb(0_0_0/0.6)] md:h-16 md:pr-3 md:pl-6">
+          <Link href="/" className="mono text-[1.0625rem] font-medium tracking-tight text-white">
+            {site.shortName}
+          </Link>
 
-        <div className="flex items-center gap-1">
-          <HeaderNav />
-          <div className="ml-2 flex items-center gap-1 border-l border-line pl-3 md:ml-4">
-            <CommandPaletteTrigger commands={getPaletteCommands()} />
-            <ThemeToggle />
+          <div className="flex min-w-0 items-center gap-1">
+            <HeaderNav />
+            <div className="ml-1 flex items-center gap-1 border-l border-white/15 pl-2 md:ml-2 md:pl-3">
+              <CommandPaletteTrigger commands={getPaletteCommands()} />
+              <ThemeToggle />
+            </div>
+            <MobileNav />
           </div>
-          <MobileNav />
         </div>
       </div>
     </header>

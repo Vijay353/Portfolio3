@@ -15,7 +15,7 @@ const SPY_TARGETS = [
   { id: "experience", href: "/#experience" },
   { id: "about", href: "/#about" },
   { id: "operate", href: "/#about" },
-  { id: "contact", href: "/#contact" },
+  { id: "contact", href: "/#about" },
 ] as const;
 
 /**
@@ -57,7 +57,7 @@ export function HeaderNav() {
 
   return (
     <nav aria-label="Primary" className="hidden md:block">
-      <ul className="flex items-center gap-x-6">
+      <ul className="flex items-center gap-x-5 md:gap-x-6">
         {NAV_ITEMS.map((item) => {
           const active = isSpyPage
             ? spyHref === item.href
@@ -68,8 +68,8 @@ export function HeaderNav() {
                 href={item.href}
                 aria-current={active ? "location" : undefined}
                 className={cn(
-                  "inline-flex min-h-11 items-center text-[0.9375rem] font-medium transition-colors hover:text-accent hover:underline hover:underline-offset-4",
-                  active ? "text-accent underline underline-offset-4" : "text-muted",
+                  "mono inline-flex min-h-11 items-center text-[0.875rem] transition-colors hover:text-white hover:underline hover:underline-offset-4",
+                  active ? "text-white underline underline-offset-4" : "text-white/60",
                 )}
               >
                 {item.label}
