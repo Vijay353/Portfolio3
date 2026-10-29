@@ -19,7 +19,7 @@ export function About() {
           and fellowship work at Third Estate Ventures added the product side: research, UX, and analytics.
         </p>
         <p>
-          It reads like three careers, but it's one skill used at different layers of the same problem. I treat enterprise problems with end-to-end ownership—from the first client discovery call to the final database transaction. Whether architecting solution blueprints for complex CPQ rollouts or leading cross-functional delivery, I focus on building reliable systems that scale long after the handoff.
+          It reads like three careers, but it's one skill used at different layers of the same problem. I treat enterprise problems with end-to-end ownership, from the first client discovery call to the final database transaction. Whether architecting solution blueprints for complex CPQ rollouts or leading cross-functional delivery, I focus on building reliable systems that scale long after the handoff.
         </p>
       </div>
     </section>

@@ -34,7 +34,7 @@ function hiddenParts(agent: ProjectEntry) {
 function CompactAgent({ agent }: { agent: ProjectEntry }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
-  const tagline = agent.title.split(" — ")[1];
+  const tagline = agent.title.split(": ")[1];
   const hidden = hiddenParts(agent);
   const lead = agent.problem ?? agent.positioning;
 
@@ -48,7 +48,7 @@ function CompactAgent({ agent }: { agent: ProjectEntry }) {
       <p className="eyebrow text-[0.75rem]">{agent.eyebrow}</p>
       <h3 className="mt-2 font-serif text-[1.25rem] leading-snug font-semibold tracking-tight text-fg">
         <span className="decoration-accent decoration-1 underline-offset-4 group-hover:underline">{shortName(agent)}</span>
-        {tagline ? <span className="font-normal text-muted"> — {tagline}</span> : null}
+        {tagline ? <span className="font-normal text-muted">: {tagline}</span> : null}
       </h3>
 
       {lead ? (

@@ -120,7 +120,7 @@ export interface ProjectEntry {
   // Identity
   /** Agents: "Agentic AI · Service operations". Case studies: the organization. Archive: the group (ArchiveGroup). */
   eyebrow: string;
-  /** Agents: "Name — what it does" (the part before " — " is the short name). */
+  /** Agents: "Name: what it does" (the part before ": " is the short name). */
   title: string;
   /** Secondary context beside the eyebrow, e.g. "Enterprise CPQ · Salesforce + SAP". */
   context?: string;

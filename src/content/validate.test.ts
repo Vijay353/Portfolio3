@@ -15,7 +15,7 @@ const base: ProjectEntry = {
   kind: "agent",
   status: "published",
   eyebrow: "Agentic AI · Example",
-  title: "Example — does a thing",
+  title: "Example: does a thing",
   lenses: ["agentic"],
   verification: { state: "verified", source: "test" },
 };

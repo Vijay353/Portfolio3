@@ -25,7 +25,7 @@ export function HomePage({ lens }: { lens: Lens }) {
               From promise to proof
             </h2>
             <p className="mt-3 text-[1rem] leading-relaxed text-muted">
-              Four agentic systems I took from a painful problem to a working, cloud-deployed vertical slice — each with full architecture, simulated enterprise backends, and a test suite that proves the claims.
+              Four agentic systems I took from a painful problem to a working, cloud-deployed vertical slice, each with full architecture, simulated enterprise backends, and a test suite that proves the claims.
             </p>
           </div>
           <WorkBento />

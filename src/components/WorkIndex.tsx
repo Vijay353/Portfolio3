@@ -58,7 +58,7 @@ export function WorkIndex({
       </p>
 
       {nothing ? (
-        <p className="container-page pt-10 text-center text-[0.9375rem] text-muted">Nothing in this slice — try All.</p>
+        <p className="container-page pt-10 text-center text-[0.9375rem] text-muted">Nothing in this slice. Try All.</p>
       ) : null}
 
       <LensSection
@@ -182,7 +182,7 @@ function LensSection({
       <section id={id} aria-label={name} className="container-page scroll-mt-12 py-3">
         <p className="flex flex-wrap items-center gap-x-2 border-y border-line text-[0.875rem] text-subtle">
           <span>
-            {name} — 0 matches
+            {name}: 0 matches
           </span>
           <span aria-hidden>·</span>
           <button type="button" onClick={onShowAnyway} className="link inline-flex min-h-11 items-center">
@@ -246,5 +246,5 @@ function describe(lens: WorkLensFilter, agents: number, cases: number, archive: 
     cases ? `${cases} case ${cases === 1 ? "study" : "studies"}` : "",
     archive ? `${archive} archive ${archive === 1 ? "project" : "projects"}` : "",
   ].filter(Boolean);
-  return parts.length ? `Showing ${parts.join(", ")}` : "Nothing in this slice — try All.";
+  return parts.length ? `Showing ${parts.join(", ")}` : "Nothing in this slice. Try All.";
 }

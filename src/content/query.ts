@@ -23,9 +23,9 @@ export function featuredEntry(list: ProjectEntry[]): ProjectEntry | undefined {
   return list.find((e) => e.featured) ?? list[0];
 }
 
-/** Short name of an agent: the part of the title before " — ". */
+/** Short name of an agent: the part of the title before ": ". */
 export function shortName(entry: Pick<ProjectEntry, "title">): string {
-  return entry.title.split(" — ")[0];
+  return entry.title.split(": ")[0];
 }
 
 /** DOM id and palette anchor for an archive row (stable since before the schema). */

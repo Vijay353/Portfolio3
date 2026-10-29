@@ -7,9 +7,9 @@ export const selectedSystems: SelectedSystem[] = [
     shortName: "3-Way Match",
     name: "Three-Way Match Controller",
     eyebrow: "Agentic AI · Finance operations",
-    headline: "Three-Way Match Controller — catching invoice mismatches before they become payments",
+    headline: "Three-Way Match Controller: catching invoice mismatches before they become payments",
     positioning:
-      "An agentic controller that reconciles purchase orders, goods receipts, and invoices, escalating only discrepancies it can prove — SAP-simulated backend.",
+      "An agentic controller that reconciles purchase orders, goods receipts, and invoices, escalating only discrepancies it can prove (SAP-simulated backend).",
     problem:
       "PO, receipt, and invoice records disagree constantly; teams drown in false positives while real overpayments slip through.",
     metrics: [
@@ -37,9 +37,9 @@ export const selectedSystems: SelectedSystem[] = [
     shortName: "Refund Assurance",
     name: "Refund Assurance",
     eyebrow: "Agentic AI · Service operations",
-    headline: "Refund Assurance — the system that reopens a case when \u201Crefund processed\u201D was a lie",
+    headline: "Refund Assurance: the system that reopens a case when \u201Crefund processed\u201D was a lie",
     positioning:
-      "When an AI service session closes with \u201Cyour refund has been processed,\u201D this agent waits out the processing window, checks Order Management, and reopens the case — only on confirmed failure.",
+      "When an AI service session closes with \u201Cyour refund has been processed,\u201D this agent waits out the processing window, checks Order Management, and reopens the case, but only on confirmed failure.",
     problem:
       "Async refunds fail silently at the gateway; the session still counts as resolved, and nobody knows until the customer calls back.",
     metrics: [
@@ -62,16 +62,16 @@ export const selectedSystems: SelectedSystem[] = [
       { label: "Architecture & README", href: null },
     ],
     honesty:
-      "Salesforce-style systems simulated and labeled; no model called at runtime — the LLM slot is a proven, schema-guarded boundary.",
+      "Salesforce-style systems simulated and labeled; no model called at runtime. The LLM slot is a proven, schema-guarded boundary.",
   },
   {
     slug: "soc-issue-solver",
     shortName: "SOC",
     name: "SOC Issue Solver",
     eyebrow: "Agentic AI · Security & compliance",
-    headline: "SOC Issue Solver — turning audit findings into tracked, verifiable fixes",
+    headline: "SOC Issue Solver: turning audit findings into tracked, verifiable fixes",
     positioning:
-      "An agent that reads compliance findings, opens the right remediation case with evidence attached, and proves the fix landed — ServiceNow-style queue simulated.",
+      "An agent that reads compliance findings, opens the right remediation case with evidence attached, and proves the fix landed (ServiceNow-style queue simulated).",
     problem:
       "SOC findings sit in spreadsheets; remediation stalls because no one can tell which fixes actually shipped.",
     metrics: [{ value: "70%", label: "less review time" }],
@@ -95,14 +95,14 @@ export const selectedSystems: SelectedSystem[] = [
     shortName: "MarginPulse",
     name: "MarginPulse",
     eyebrow: "Agentic AI · Operations (marketplace)",
-    headline: "MarginPulse — pausing paid demand when the kitchen is drowning, and proving the pause stuck",
+    headline: "MarginPulse: pausing paid demand when the kitchen is drowning, and proving the pause stuck",
     positioning:
-      "On a kitchen-load event from a POS/KDS webhook, an investigator gathers read-only evidence, a deterministic 18-check policy decides, a manager approves, and exactly one PATCH pauses the Sponsored Listings campaign — verified by readback, never by HTTP 200.",
+      "On a kitchen-load event from a POS/KDS webhook, an investigator gathers read-only evidence, a deterministic 18-check policy decides, a manager approves, and exactly one PATCH pauses the Sponsored Listings campaign, verified by readback, never by HTTP 200.",
     problem:
       "During a rush, the kitchen and the ad budget live in different systems; pausing means noticing, switching tools, and later checking it actually stopped.",
     metrics: [
       { value: "81 + 6", label: "Vitest + Playwright tests" },
-      { value: "1", label: "write path — approval-bound, idempotency-reserved, pre-write re-read, readback-verified" },
+      { value: "1", label: "write path: approval-bound, idempotency-reserved, pre-write re-read, readback-verified" },
       { value: "3", label: "failure classifications handled without blind retries" },
     ],
     architecture: [
