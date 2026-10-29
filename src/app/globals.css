@@ -1,0 +1,306 @@
+@import "tailwindcss";
+
+/* Dark theme is driven by [data-theme] on <html>, set before paint by ThemeScript. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ── Tokens ─────────────────────────────────────────────────────────────── */
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --fg: #16181d;
+  --muted: #4f5561;      /* 7.3:1 on --bg */
+  --subtle: #676d78;     /* 5.1:1 on --bg */
+  --line: #e3e3de;
+  --line-strong: #cfcfc8;
+  --accent: #1d4c8f;     /* 8.3:1 on --bg */
+  --accent-hover: #163b70;
+  --accent-soft: #e9eff8;
+  --on-accent: #ffffff;
+  --review: #8a5a00;
+  --review-bg: #fdf3dc;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --surface: #161a20;
+  --fg: #e9ebef;
+  --muted: #b0b6c0;      /* 9.4:1 on --bg */
+  --subtle: #8f96a1;     /* 6.4:1 on --bg */
+  --line: #252a32;
+  --line-strong: #353b45;
+  --accent: #93b8ea;     /* 9.1:1 on --bg */
+  --accent-hover: #b4cdf1;
+  --accent-soft: #17243a;
+  --on-accent: #0f1115;
+  --review: #f0c46b;
+  --review-bg: #2c2210;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-review: var(--review);
+  --color-review-bg: var(--review-bg);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, "Times New Roman", serif;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+}
+
+/* ── Components ─────────────────────────────────────────────────────────── */
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  /* Inline text links always look like links: underline, not color alone. */
+  .link {
+    color: var(--fg);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--line-strong);
+    transition: text-decoration-color 150ms ease, color 150ms ease;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+    color: var(--accent);
+  }
+
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--subtle);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem; /* 44px tap target */
+    padding: 0 1.125rem;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-secondary {
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    background: var(--surface);
+  }
+  .btn-secondary:hover { border-color: var(--fg); }
+  .btn:active { transform: translateY(1px); }
+
+  /* Arrow nudge used by CTAs and clickable rows. */
+  .nudge { transition: transform 200ms var(--ease-out-soft); }
+  .group:hover .nudge,
+  .group:focus-within .nudge { transform: translateX(3px); }
+  .group:hover .nudge-diag,
+  .group:focus-within .nudge-diag { transform: translate(2px, -2px); }
+
+  .review-note {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    margin-left: 0.375rem;
+    padding: 0.0625rem 0.375rem;
+    border-radius: 0.25rem;
+    background: var(--review-bg);
+    color: var(--review);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    font-weight: 500;
+    vertical-align: baseline;
+  }
+}
+
+/* ── Motion ─────────────────────────────────────────────────────────────── */
+/* One short, one-time entrance for the hero. No scroll-driven effects anywhere. */
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: enter 520ms var(--ease-out-soft) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+  @keyframes enter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Promote crossfade for Selected Work (used with motion-safe:). */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Additions: palette, disclosure, flow ───────────────────────────────── */
+@layer components {
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--line);
+    border-radius: 0.3125rem;
+    background: var(--bg);
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-feature-settings: normal;
+  }
+  kbd.kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.375rem;
+    height: 1.375rem;
+    padding: 0 0.3125rem;
+    border: 1px solid var(--line-strong);
+    border-bottom-width: 2px;
+    border-radius: 0.3125rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.6875rem;
+    color: var(--muted);
+    background: var(--surface);
+  }
+
+  /* Height transition for disclosures (collapses instantly with reduced motion). */
+  .disclosure-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 220ms var(--ease-out-soft);
+  }
+  .disclosure-panel[data-open="true"] { grid-template-rows: 1fr; }
+  .disclosure-panel > div { overflow: hidden; min-height: 0; }
+
+  /* Palette dialog */
+  dialog.palette {
+    margin: 12vh auto auto;
+    width: min(36rem, calc(100vw - 2rem));
+    max-height: min(32rem, 76vh);
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 0.875rem;
+    background: var(--surface);
+    color: var(--fg);
+    box-shadow: 0 24px 64px -24px rgb(0 0 0 / 0.35);
+    overflow: hidden;
+  }
+  dialog.palette::backdrop {
+    background: rgb(15 17 21 / 0.35);
+    backdrop-filter: blur(2px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.palette[open] { animation: palette-in 160ms var(--ease-out-soft); }
+    @keyframes palette-in {
+      from { opacity: 0; transform: translateY(-4px) scale(0.99); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+
+  /* Hero flow: steps settle in once, in order. */
+  @media (prefers-reduced-motion: no-preference) {
+    .flow-step {
+      animation: enter 320ms var(--ease-out-soft) both;
+      animation-delay: calc(120ms + var(--i, 0) * 60ms);
+    }
+    .flow-swap { animation: flow-swap 260ms var(--ease-out-soft); }
+    @keyframes flow-swap {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+  }
+}
+
+/* Sections focused programmatically (skip link, palette jumps) don't need a ring. */
+[tabindex="-1"]:focus { outline: none; }
+
+[data-lens-item] {
+  transition: opacity 160ms ease;
+}
+[data-work-lens-root]:not([data-active-lens="all"]) [data-lens-item] {
+  opacity: 0.86;
+}
+[data-work-lens-root][data-active-lens="product-ux"] [data-lens-item][data-lenses~="product-ux"],
+[data-work-lens-root][data-active-lens="data-ai"] [data-lens-item][data-lenses~="data-ai"],
+[data-work-lens-root][data-active-lens="enterprise-integration"] [data-lens-item][data-lenses~="enterprise-integration"],
+[data-work-lens-root][data-active-lens="audit-governance"] [data-lens-item][data-lenses~="audit-governance"],
+[data-work-lens-root][data-active-lens="agentic"] [data-lens-item][data-lenses~="agentic"],
+[data-work-lens-root][data-active-lens="case-studies"] [data-lens-item][data-lenses~="case-studies"],
+[data-lens-item]:hover,
+[data-lens-item]:focus-within {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-lens-item] { transition: none; }
+}
