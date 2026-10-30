@@ -269,6 +269,17 @@ export const projects: ProjectEntry[] = [
     lenses: ["agentic", "data-ai"],
     verification: { state: "verified", source: "Original portfolio copy (index6.html); unsupported problem line cut" },
   },
+  {
+    id: "chokepoint",
+    kind: "agent",
+    status: "published",
+    eyebrow: "Side project",
+    title: "ChokePoint",
+    positioning: "A personal project published from the ChokePoint repository.",
+    links: [{ label: "Run locally →", repo: "https://github.com/Vijay353/ChokePoint" }],
+    lenses: ["agentic"],
+    verification: { state: "verified", source: "github.com/Vijay353/ChokePoint (added at author request; live demo URL pending)" },
+  },
 
   // ── Case studies ──────────────────────────────────────────────────────────
   {

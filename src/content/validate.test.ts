@@ -28,8 +28,8 @@ describe("projects.ts", () => {
     assert.deepEqual(errorsFor(projects), []);
   });
 
-  it("ships the five agents, four case studies, and the archive", () => {
-    assert.deepEqual(section(projects, "agent").map((e) => e.id), ["refund-assurance", "matchpoint", "business-impact-gate", "marginpulse", "genai-agentic-rag"]);
+  it("ships the six agents, four case studies, and the archive", () => {
+    assert.deepEqual(section(projects, "agent").map((e) => e.id), ["refund-assurance", "matchpoint", "business-impact-gate", "marginpulse", "genai-agentic-rag", "chokepoint"]);
     assert.deepEqual(section(projects, "case-study").map((e) => e.id), ["configit-quote-to-order", "third-estate-property-data", "ub-product-discovery", "ai-contract-analyzer"]);
     assert.equal(section(projects, "archive").length, 15);
   });
