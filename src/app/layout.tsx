@@ -27,7 +27,7 @@ const sourceSerif = localFont({
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 // Env override wins when set (non-empty); otherwise fall back to the hardcoded project ID
 // so an empty NEXT_PUBLIC_CLARITY_ID can never silently disable tracking.
-const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "z5gvkzh4j6";
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "z5yy1disb2";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
