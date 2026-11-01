@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { AnalyticsListener } from "@/components/AnalyticsListener";
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <PrintBrief />
         <CopyToastHost />
         <AnalyticsListener gaEnabled={Boolean(GA_ID)} />
+        <Analytics />
         {GA_ID ? <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" /> : null}
       </body>
     </html>
