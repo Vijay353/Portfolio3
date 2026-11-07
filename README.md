@@ -57,16 +57,6 @@ All copy lives in `src/content/`. No layout code to touch.
 
 **Add a project visual:** put it under `public/images/projects/` and set `glimpse: { type, src, alt }`. Images render as stills; `.mp4` / `.webm` loops render muted and paused until the visitor presses play. A missing file fails the build for published entries.
 
-## Analytics
-
-Components never call a vendor. Links carry `data-track` attributes; one client component (`AnalyticsListener`) forwards them to registered providers.
-
-- GA4: set `NEXT_PUBLIC_GA_ID` (the old site used `G-RXJKP5MVQW`).
-- Vercel Analytics: install `@vercel/analytics` and add `<Analytics />` to the layout; custom events already route to it.
-- Anything else: `registerAnalyticsProvider((event, props) => …)` in `src/lib/analytics.ts`.
-
-Events: `page_view`, `view_work_click`, `case_study_click`, `external_project_click`, `linkedin_click`, `github_click`, `contact_click`, `work_lens_selected`, `archive_category_expanded`, `archive_project_opened`.
-
 ## Deploy
 
 Vercel: import the repo, set `NEXT_PUBLIC_SITE_URL` (and optionally `NEXT_PUBLIC_GA_ID`), deploy. No other configuration.
